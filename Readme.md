@@ -1,4 +1,4 @@
-## Project I: File Compression with Huffman
+## UIR Project I: File Compression with Huffman
 
 **- Name: El Mehdi Hamte - MrFall**
 
