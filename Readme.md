@@ -4,14 +4,11 @@
 
 **- Date: 26-11-2026**
 
----
-
 ## **1. Introduction**
 
 In this project, we developed a Java program that compresses and decompresses text files using the **Huffman algorithm**.  
 The goal is to reduce the number of bits used to represent characters based on their frequency in the text.
 
----
 
 ## **2. Huffman Algorithm Explanation**
 
@@ -37,7 +34,7 @@ The goal is to reduce the number of bits used to represent characters based on t
    - Rebuild the tree from the code file.  
    - Read bits and convert them back to the original characters.
 
----
+
 
 ## **3. Project Files and Their Functions**
 
@@ -48,7 +45,6 @@ The goal is to reduce the number of bits used to represent characters based on t
 | `HuffmanCoding.java` | Contains all algorithm methods: `buildFrequencyTable`, `buildHuffmanTree`, `generateCodes`, `encodeFile`, `decodeFile`, `readCodesFromFile`, `writeCodesToFile`, `rebuildTreeFromCodes`. |
 | `Main.java` | Main program to run from the command line: `encode` and `decode` commands. |
 
----
 
 ## **4. Testing Methodology**
 
@@ -86,7 +82,6 @@ cat result.txt
 
 > **Note:** Compression efficiency depends on character frequency in the original file.
 
----
 
 ## **6. Conclusion** 
 
@@ -95,9 +90,8 @@ cat result.txt
 - Code is **well-organized** and modular.  
 - Additional **diagrams, charts, or videos** can enhance understanding.
 
----
 
-## **7. Educational Videos** 🎬
+## **7. Educational Videos** 
 
 **Learn more about Huffman coding with this video:**
 
