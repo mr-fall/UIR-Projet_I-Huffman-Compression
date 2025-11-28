@@ -1,4 +1,4 @@
-# Project I: File Compression with Huffman (C Implementation)
+# Project I: File Compression with Huffman
 
 **- Name: El Mehdi Hamte - MrFall**  
 **- Date: 26-11-2026**
