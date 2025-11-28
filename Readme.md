@@ -1,98 +1,125 @@
-## UIR Project I: File Compression with Huffman
+# Project I: File Compression with Huffman (C Implementation)
 
-**- Name: El Mehdi Hamte - MrFall**
-
+**- Name: El Mehdi Hamte - MrFall**  
 **- Date: 26-11-2026**
 
-## **1. Introduction**
+---
 
-In this project, we developed a Java program that compresses and decompresses text files using the **Huffman algorithm**.  
-The goal is to reduce the number of bits used to represent characters based on their frequency in the text.
+## 1. Introduction
 
+This project implements **file compression and decompression** using the **Huffman algorithm** in the C programming language.
 
-## **2. Huffman Algorithm Explanation**
+The goal is to minimize the number of bits needed to represent characters by assigning shorter codes to frequent characters and longer codes to rare characters.
 
-1. **Character Frequency Calculation**  
-   - Count how many times each character appears in the original file.
+---
 
-2. **Building the Huffman Tree**  
-   - Leaves represent characters with their frequencies.  
-   - Internal nodes do not contain characters; they represent the sum of the child nodes’ frequencies.  
-   - Nodes with the smallest frequencies are merged first.
+## 2. Huffman Algorithm Explanation
 
-3. **Generating Codes**  
-   - The path from the root to each leaf provides the **Huffman code**:  
-     **- Left → 0**
-     
-     **- Right → 1**
+### **1. Character Frequency Calculation**
+We count how many times each character appears in the input file.
 
-4. **File Encoding**  
-   - Each character is replaced by its binary code.  
-   - The last byte may contain **padding**, stored in a `.meta` file.
+### **2. Building the Huffman Tree**
+- Leaves = characters and their frequencies  
+- Internal nodes = sum of children  
+- Always merge the **two smallest nodes first** using a Min-Heap
 
-5. **File Decoding**  
-   - Rebuild the tree from the code file.  
-   - Read bits and convert them back to the original characters.
+### **3. Generating Huffman Codes**
+Each path from root to leaf generates a code:
 
+- **Left → 0**  
+- **Right → 1**
 
+### **4. File Encoding**
+- Replace each character with its Huffman code  
+- Bits are grouped into bytes  
+- Last byte may contain **padding** → stored in a `.meta` file  
 
-## **3. Project Files and Their Functions**
+### **5. File Decoding**
+- Rebuild the Huffman tree from `codes.map`  
+- Decode the compressed bit stream  
+- Remove padding  
+- Restore the original text exactly
 
-| File | Function |
-|------|---------|
-| `HuffmanNode.java` | Defines a node in the tree: character, frequency, children. Includes `isLeaf()` method. |
-| `MinHeap.java` | Min-heap data structure for efficiently extracting minimum frequency nodes. Methods: `insert`, `extractMin`, `buildHeap`. |
-| `HuffmanCoding.java` | Contains all algorithm methods: `buildFrequencyTable`, `buildHuffmanTree`, `generateCodes`, `encodeFile`, `decodeFile`, `readCodesFromFile`, `writeCodesToFile`, `rebuildTreeFromCodes`. |
-| `Main.java` | Main program to run from the command line: `encode` and `decode` commands. |
+---
 
+## 3. Project Files and Their Functions
 
-## **4. Testing Methodology**
+| File | Description |
+|------|-------------|
+| `huffman.h` | Node structure + Huffman function prototypes |
+| `huffman.c` | Huffman tree creation, code generation, encode/decode logic |
+| `minheap.h` | Heap structure and prototypes |
+| `minheap.c` | Min-Heap implementation (insert, extract-min, build-heap) |
+| `main.c` | CLI interface: `encode` and `decode` commands |
+| `Makefile` | Automates compilation (`make`) |
 
-**1. Prepare a test file:**
-```
+---
+
+## 4. How to Use the Program
+
+### **1. Create your input file**
+```bash
 echo "ABRACADABRA" > input.txt
 ```
 
-**2. Compile all files:**
-```
-javac *.java
-```
+---
 
-**3. Encode the file:**
-```
-java Main encode input.txt compressed.huf codes.map
+### **2. Compile the project**
+```bash
+gcc main.c huffman.c minheap.c -o huff
 ```
 
-**4. Decode the file:**
+(or simply)
+
+```bash
+make
 ```
-java Main decode compressed.huf compressed.huf.meta codes.map result.txt
+
+---
+
+### **3. Compress a file**
+```bash
+./huff encode input.txt compressed.huf codes.map
 ```
 
-**5. Verify the output:**
+This generates:
+- `compressed.huf` → compressed binary file  
+- `codes.map` → Huffman codes used  
+- `compressed.huf.meta` → padding info  
+
+---
+
+### **4. Decompress**
+```bash
+./huff decode compressed.huf compressed.huf.meta codes.map mrfall.txt
 ```
-cat result.txt
+
+---
+
+### **5. Check output**
+```bash
+cat mrfall.txt
 ```
-> **The output should match the original text.**
 
-## **5. Test Results**
+**Expected:**
+```
+ABRACADABRA
+```
 
-| Original File       | Original Size | Compressed Size | Compression Ratio |
-|-------------------|---------------|----------------|-----------------|
-| `input.txt` (ABRACADABRA) | 11 bytes      | 3 bytes        | 72% saved       |
+---
 
-> **Note:** Compression efficiency depends on character frequency in the original file.
+## 5. Test Results
 
+| File | Original Size | Compressed Size | Compression Ratio |
+|------|---------------|-----------------|------------------|
+| `input.txt` (ABRACADABRA) | 11 bytes | 3 bytes | 72% saved |
 
-## **6. Conclusion** 
+> Compression becomes more effective with **larger and more repetitive input data**.
 
-- Java program successfully compresses and decompresses text files using Huffman coding.  
-- The program passed all tests with **efficient compression and no data loss**.  
-- Code is **well-organized** and modular.  
-- Additional **diagrams, charts, or videos** can enhance understanding.
+---
 
+## 6. Educational Videos
 
-## **7. Educational Videos** 
+Learn Huffman Coding visually:
 
-**Learn more about Huffman coding with this video:**
-
-[![Huffman Coding Video](https://img.youtube.com/vi/co4_ahEDCho/0.jpg)](https://www.youtube.com/watch?v=co4_ahEDCho)
+[![Huffman Coding](https://img.youtube.com/vi/co4_ahEDCho/0.jpg)](https://www.youtube.com/watch?v=co4_ahEDCho)
